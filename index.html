@@ -40,149 +40,127 @@
             text-align: center;
             margin-bottom: 50px;
             color: white;
-            animation: fadeIn 1s ease-out;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        p.subtitle { font-size: 1.1rem; opacity: 0.9; }
 
-        p.subtitle {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-
-        .application-form {
-            display: flex;
-            flex-direction: column;
-            gap: 30px;
-        }
-
-        .card {
+        /* ACCORDION STYLES */
+        .accordion-item {
+            margin-bottom: 20px;
             background: var(--card-bg);
             border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             border-left: 6px solid var(--primary);
         }
 
-        .card h2 {
-            margin-top: 0;
-            color: var(--primary);
+        .accordion-header {
+            width: 100%;
+            background: #eef2ff; /* Light Accent */
+            color: var(--text);
+            padding: 20px 30px;
+            text-align: left;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .accordion-header:hover {
+            background: var(--accent);
+        }
+        .accordion-header h2 {
+            margin: 0;
             font-size: 1.5rem;
-            margin-bottom: 20px;
-            border-bottom: 2px dashed var(--accent);
-            padding-bottom: 10px;
+            color: var(--primary);
+        }
+        .status-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .status-icon {
+            transform: rotate(90deg);
+        }
+        .accordion-item.completed .status-icon {
+            color: var(--success);
+            font-size: 1.2rem;
+            transform: none;
         }
 
-        label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: #333;
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+            padding: 0 30px;
         }
+        .accordion-item.active .accordion-content {
+            padding: 30px;
+            max-height: 3000px; /* Large enough to cover content */
+        }
+        
+        /* CARD content (inside accordion-content) */
+        .card {
+            padding: 0; /* Remove padding as it's now on accordion-content */
+            box-shadow: none;
+            border-left: none;
+            border-radius: 0;
+        }
+
+        label { display: block; font-weight: 600; margin-bottom: 8px; color: #333; }
         
         /* Input and Select Styling */
         input:not([type="radio"]), select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.3s;
-            margin-bottom: 15px;
+            width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;
+            box-sizing: border-box; transition: border-color 0.3s; margin-bottom: 15px;
         }
-        
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        .required { color: #e74c3c; }
+
         /* Conditional Groups */
         .id-type-selection { display: flex; gap: 20px; margin-bottom: 15px; }
         .id-type-selection label { display: inline-flex; align-items: center; font-weight: 400; margin-bottom: 0; }
         .id-type-selection input[type="radio"] { width: auto; margin-right: 8px; margin-bottom: 0; }
-        .conditional-section { 
-            border: 1px dashed #e0e7ff; 
-            padding: 15px; 
-            border-radius: 8px; 
-            margin-bottom: 20px; 
-        }
-        .required { color: #e74c3c; }
-
+        .conditional-section { border: 1px dashed #e0e7ff; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        
         /* Program Info Box Styling */
         #programInfoBox .program-detail-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: #eef2ff;
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-            border: 1px solid var(--primary);
-            text-align: center;
+            display: flex; flex-direction: column; align-items: center; background: #eef2ff;
+            border-radius: 12px; padding: 20px; margin-top: 15px; border: 1px solid var(--primary); text-align: center;
         }
-
         #programInfoBox .program-detail-card img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%; max-width: 300px; height: auto; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        #programInfoBox .program-detail-card h3 {
-            color: var(--secondary);
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        #programInfoBox .program-detail-card p {
-            color: #475569;
-            margin-bottom: 0;
-        }
+        #programInfoBox .program-detail-card h3 { color: var(--secondary); margin-top: 0; margin-bottom: 10px; font-size: 1.3rem; }
+        #programInfoBox .program-detail-card p { color: #475569; margin-bottom: 0; }
 
         /* Assessment Rating Group */
         .rating-group {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-            padding: 5px 0;
-            border-top: 1px dashed #eee;
+            display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
+            padding: 5px 0; border-top: 1px dashed #eee;
         }
-        .rating-group label {
-            font-weight: 400;
-            font-size: 1em;
-            margin-bottom: 0;
-        }
-        .rating-group select {
-            width: 150px;
-            margin-bottom: 0;
-        }
+        .rating-group:last-child { border-bottom: 1px dashed #eee; }
+        .rating-group label { font-weight: 400; font-size: 1em; margin-bottom: 0; }
+        .rating-group select { width: 150px; margin-bottom: 0; }
         
-        /* IMPORTANT NOTE STYLING */
-        .important-note {
-            background-color: var(--warning-bg); 
-            color: var(--warning-text); 
-            border-left: 5px solid var(--warning-border);
-            padding: 15px;
-            margin-bottom: 20px;
+        /* Navigation & Submission Buttons */
+        .nav-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1rem;
+            font-weight: bold;
             border-radius: 8px;
-            font-size: 0.95em;
-            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+            margin-top: 20px;
+            width: 100%;
         }
-        .important-note strong {
-            font-weight: 700;
-            color: #c084f0; /* Use a strong color for emphasis */
-        }
-        
-        /* Submission Styles */
+        .nav-btn:hover { background: var(--secondary); }
+
         .submit-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -197,76 +175,82 @@
             width: 100%;
         }
 
-        .submit-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4);
-        }
-
-        .submit-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
+        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 10px 15px -3px rgba(102, 126, 234, 0.4); }
+        .submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
 
         .loader {
-            display: none;
-            border: 4px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 4px solid white;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
+            display: none; border: 4px solid #f3f3f3; border-radius: 50%; border-top: 4px solid white;
+            width: 20px; height: 20px; animation: spin 1s linear infinite; margin: 0 auto;
         }
+        
+        /* IMPORTANT NOTE */
+        .important-note {
+            background-color: var(--warning-bg); color: var(--warning-text); border-left: 5px solid var(--warning-border);
+            padding: 15px; margin-bottom: 20px; border-radius: 8px; font-size: 0.95em; font-weight: 500;
+        }
+        .important-note strong { font-weight: 700; color: var(--secondary); }
 
-        /* Success Message */
+        /* --- SUCCESS/THANK YOU MESSAGE STYLES --- */
         #success-message {
-            display: none;
-            text-align: center;
-            padding: 40px;
-            background: #dcfce7;
-            color: #166534;
-            border-radius: 16px;
-            margin-top: 20px;
-            border-left: 6px solid var(--success);
+            display: none; text-align: center; padding: 40px; background: #dcfce7;
+            color: #166534; border-radius: 16px; margin-top: 20px; border-left: 6px solid var(--success);
             animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 700px; margin: 0 auto;
         }
         #success-message h2 { color: var(--success); }
-        .summary-box {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 20px;
-            text-align: left;
-            border: 1px solid #e2e8f0;
-        }
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dotted #e0e0e0;
-        }
+        .summary-box { background: white; padding: 20px; border-radius: 10px; margin-top: 20px; text-align: left; border: 1px solid #e2e8f0; }
+        .summary-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dotted #e0e0e0; }
         .summary-label { font-weight: 600; color: #475569; }
         .summary-value { color: var(--primary); font-weight: 500; }
-        /* Highlighted ID on Success Screen */
         .summary-item.highlight {
-            background-color: #f0f4ff; /* Light accent blue */
-            padding: 15px 10px;
+            background-color: #f0f4ff; padding: 15px 10px; border-radius: 8px; border: 1px solid var(--accent);
+            font-size: 1.1em; margin-bottom: 15px;
+        }
+        .id-value { color: var(--secondary); font-weight: 700; }
+        /* Contact Info Block from thankyou.html */
+        .contact-info {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #ffc107;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .contact-info h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .contact-info p {
+            color: #856404;
+            font-size: 1em;
+            margin: 5px 0;
+        }
+        .btn-home {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
             border-radius: 8px;
-            border: 1px solid #c7d2fe;
+            text-decoration: none;
             font-size: 1.1em;
-            margin-bottom: 15px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
-        .id-value {
-            color: var(--secondary);
-            font-weight: 700;
+        .btn-home:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
         }
-
 
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes popIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        
+        @media (max-width: 768px) {
+            .header h1 { font-size: 1.8em; }
+            .accordion-header h2 { font-size: 1.3rem; }
+            .accordion-content { padding: 20px; }
+            .rating-group select { width: 100px; }
+        }
     </style>
 </head>
 <body>
@@ -274,113 +258,133 @@
     <div class="container">
         <header>
             <h1>🎓 Sozo Skills Application</h1>
-            <p class="subtitle">Complete the form and assessment below to apply for a training program.</p>
+            <p class="subtitle">Complete the form and assessment below to apply for a training program. **Age Restriction: 16 - 35**</p>
         </header>
 
         <form name="fullApplicationForm" class="application-form" id="fullApplicationForm">
             
-            <div class="card">
-                <h2>1. Personal Information</h2>
-                <div class="form-group"><label>First Name <span class="required">*</span></label><input type="text" name="firstName" required></div>
-                <div class="form-group"><label>Last Name <span class="required">*</span></label><input type="text" name="lastName" required></div>
-                
-                <div class="form-group">
-                    <label>Identification Type <span class="required">*</span></label>
-                    <div class="id-type-selection">
-                        <label><input type="radio" name="identificationType" value="SA ID" required onclick="toggleIdentificationType(this)">South African ID</label>
-                        <label><input type="radio" name="identificationType" value="Passport" required onclick="toggleIdentificationType(this)">Passport / Foreign ID</label>
-                    </div>
-                </div>
-
-                <div class="conditional-section" id="saIdGroup" style="display: none;">
-                    <label>South African ID Number <span class="required">*</span></label>
-                    <input type="text" name="idNumber" id="idNumberInput" pattern="[0-9]{13}" placeholder="13-digit ID number" oninput="processSAID(this)">
-                </div>
-
-                <div class="conditional-section" id="passportGroup" style="display: none;">
-                    <label>Passport Number <span class="required">*</span></label>
-                    <input type="text" name="passportNumber" id="passportNumberInput">
-                    <div style="border-left: 3px solid #f39c12; padding-left: 10px; margin-top: 15px;">
-                        <label style="font-weight: 700;">Do you have a valid Work or Study Permit? <span class="required">*</span></label>
-                        <select name="permitStatus" id="permitStatusInput" onchange="togglePermitDetails(this)">
-                            <option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option>
-                        </select>
-                        <div class="form-group" id="permitDetailsGroup" style="display: none;">
-                            <label>Permit Details (e.g., Permit Type, Expiry Date)</label>
-                            <input type="text" name="permitDetails">
+            <div class="accordion-item active" id="section1">
+                <button type="button" class="accordion-header" onclick="toggleAccordion('section1')">
+                    <h2 id="header1">1. Personal Information <span class="status-icon">▶</span></h2>
+                </button>
+                <div class="accordion-content">
+                    <div class="card">
+                        <div class="form-group"><label>First Name <span class="required">*</span></label><input type="text" name="firstName" required></div>
+                        <div class="form-group"><label>Last Name <span class="required">*</span></label><input type="text" name="lastName" required></div>
+                        
+                        <div class="form-group">
+                            <label>Identification Type <span class="required">*</span></label>
+                            <div class="id-type-selection">
+                                <label><input type="radio" name="identificationType" value="SA ID" required onclick="toggleIdentificationType(this)">South African ID</label>
+                                <label><input type="radio" name="identificationType" value="Passport" required onclick="toggleIdentificationType(this)">Passport / Foreign ID</label>
+                            </div>
                         </div>
+
+                        <div class="conditional-section" id="saIdGroup" style="display: none;">
+                            <label>South African ID Number <span class="required">*</span></label>
+                            <input type="text" name="idNumber" id="idNumberInput" pattern="[0-9]{13}" placeholder="13-digit ID number" oninput="processSAID(this)">
+                        </div>
+
+                        <div class="conditional-section" id="passportGroup" style="display: none;">
+                            <label>Passport Number <span class="required">*</span></label>
+                            <input type="text" name="passportNumber" id="passportNumberInput">
+                            <div style="border-left: 3px solid #f39c12; padding-left: 10px; margin-top: 15px;">
+                                <label style="font-weight: 700;">Do you have a valid Work or Study Permit? <span class="required">*</span></label>
+                                <select name="permitStatus" id="permitStatusInput" onchange="togglePermitDetails(this)">
+                                    <option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option>
+                                </select>
+                                <div class="form-group" id="permitDetailsGroup" style="display: none;">
+                                    <label>Permit Details (e.g., Permit Type, Expiry Date)</label>
+                                    <input type="text" name="permitDetails">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label>Date of Birth <span class="required">*</span></label><input type="date" name="dateOfBirth" id="dateOfBirthInput" required readonly style="background-color: #eee;"></div>
+                        <div class="form-group"><label>Age <span class="required">*</span></label><input type="number" name="age" id="ageInput" required min="16" max="35" readonly style="background-color: #eee;"></div>
+                        <div class="form-group"><label>Gender <span class="required">*</span></label><select name="gender" required onchange="toggleConstructionExperience(this)"><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
+                        
+                        <div class="conditional-section" id="constructionExperienceSection" style="display: none;">
+                            <label>Do you have any experience in construction or related trades?</label>
+                            <select name="constructionExperience" onchange="toggleConstructionDetails(this)"><option value="No">No</option><option value="Yes">Yes</option></select>
+                            <div class="form-group" id="constructionDetailsGroup" style="display: none; margin-top: 15px;">
+                                <label>Please briefly describe your experience</label><textarea name="constructionDetails" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group"><label>Race <span class="required">*</span></label><select name="race" required><option value="">Select Race</option><option value="African">African</option><option value="Coloured">Coloured</option><option value="Indian">Indian</option><option value="White">White</option><option value="Other">Other</option></select></div>
+                        <div class="form-group"><label>Do you have a disability? <span class="required">*</span></label><select name="disability" required onchange="toggleDisabilityType(this)"><option value="">Select</option><option value="No">No</option><option value="Yes">Yes</option></select></div>
+                        <div class="form-group" id="disabilityTypeGroup" style="display: none;"><label>Type of Disability</label><input type="text" name="disabilityType"></div>
+
+                        <button type="button" class="nav-btn" onclick="goToNextSection(1)">Continue to Contact & Background</button>
                     </div>
                 </div>
-
-                <div class="form-group"><label>Date of Birth <span class="required">*</span></label><input type="date" name="dateOfBirth" id="dateOfBirthInput" required readonly style="background-color: #eee;"></div>
-                <div class="form-group"><label>Age <span class="required">*</span></label><input type="number" name="age" id="ageInput" required min="16" max="65" readonly style="background-color: #eee;"></div>
-                <div class="form-group"><label>Gender <span class="required">*</span></label><select name="gender" required onchange="toggleConstructionExperience(this)"><option value="">Select Gender</option><option value="Male">Male</option><option value="Female">Female</option><option value="Other">Other</option></select></div>
-                
-                <div class="conditional-section" id="constructionExperienceSection" style="display: none;">
-                    <label>Do you have any experience in construction or related trades?</label>
-                    <select name="constructionExperience" onchange="toggleConstructionDetails(this)"><option value="No">No</option><option value="Yes">Yes</option></select>
-                    <div class="form-group" id="constructionDetailsGroup" style="display: none; margin-top: 15px;">
-                        <label>Please briefly describe your experience</label><textarea name="constructionDetails" rows="2"></textarea>
-                    </div>
-                </div>
-
-                <div class="form-group"><label>Race <span class="required">*</span></label><select name="race" required><option value="">Select Race</option><option value="African">African</option><option value="Coloured">Coloured</option><option value="Indian">Indian</option><option value="White">White</option><option value="Other">Other</option></select></div>
-                <div class="form-group"><label>Do you have a disability? <span class="required">*</span></label><select name="disability" required onchange="toggleDisabilityType(this)"><option value="">Select</option><option value="No">No</option><option value="Yes">Yes</option></select></div>
-                <div class="form-group" id="disabilityTypeGroup" style="display: none;"><label>Type of Disability</label><input type="text" name="disabilityType"></div>
             </div>
 
-            <div class="card" style="border-left-color: #f59e0b;">
-                <h2 style="color: #f59e0b;">2. Contact & Background</h2>
-                <div class="form-group"><label>Mobile Number <span class="required">*</span></label><input type="tel" name="mobile" required pattern="[0-9]{10}" placeholder="082xxxxxxx"></div>
-                <div class="form-group"><label>Alternative Mobile Number</label><input type="tel" name="altMobile" pattern="[0-9]{10}"></div>
-                <div class="form-group"><label>Email Address</label><input type="email" name="email"></div>
-                <div class="form-group"><label>Area <span class="required">*</span></label><select name="area" required><option value="">Select Area</option><option value="Vrygrond">Vrygrond</option><option value="Muizenberg">Muizenberg</option><option value="Lakeside">Steenberg</option><option value="Ocean View">Lavender Hill</option><option value="Fish Hoek">Grassy Park</option><option value="Ocean View">Cadfa</option><option value="Fish Hoek">Retreat</option><option value="Ocean View">Seawinds</option><option value="Fish Hoek">Hillview</option></select></div>
-                <div class="form-group"><label>Full Address <span class="required">*</span></label><textarea name="address" rows="3" required></textarea></div>
-                
-                <h3 style="color: #667eea; margin-top: 25px; margin-bottom: 15px;">Education & Employment</h3>
-                <div class="form-group"><label>Highest Education Level <span class="required">*</span></label><select name="education" required><option value="">Select</option><option value="Primary School">Primary School</option><option value="Grade 9">Grade 9</option><option value="Grade 10">Grade 10</option><option value="Grade 11">Grade 11</option><option value="Matric">Matric</option><option value="Tertiary">Tertiary</option></select></div>
-                <div class="form-group"><label>Current Employment Status <span class="required">*</span></label><select name="employmentStatus" required><option value="">Select</option><option value="Unemployed">Unemployed</option><option value="Employed - Full Time">Employed - Full Time</option><option value="Employed - Part Time">Employed - Part Time</option><option value="Self-Employed">Self-Employed</option><option value="Student">Student</option></select></div>
-                <div class="form-group"><label>Monthly Household Income (R) <span class="required">*</span></label><select name="income" required><option value="">Select Income Bracket</option><option value="0-R1000">R0 - R1,000</option><option value="R1001-R3000">R1,001 - R3,000</option><option value="R3001-R5000">R3,001 - R5,000</option><option value="R5001+">R5,001+</option></select></div>
-                <div class="form-group"><label>Which program are you applying for? <span class="required">*</span></label><select name="program" required onchange="displayProgramInfo(this)"><option value="">Select Program</option><option value="Artisan Baking">Artisan Baking</option><option value="Barista">Barista</option><option value="Hair">Hair</option><option value="Beauty">Beauty</option></select></div>
-                <div id="programInfoBox"></div>
+            <div class="accordion-item" id="section2" style="border-left-color: #f59e0b;">
+                <button type="button" class="accordion-header" onclick="toggleAccordion('section2')" disabled>
+                    <h2 id="header2" style="color: #f59e0b;">2. Contact & Background <span class="status-icon">▶</span></h2>
+                </button>
+                <div class="accordion-content">
+                    <div class="card">
+                        <div class="form-group"><label>Mobile Number <span class="required">*</span></label><input type="tel" name="mobile" id="mobileInput" required pattern="[0-9]{10}" placeholder="082xxxxxxx"></div>
+                        <div class="form-group"><label>Alternative Mobile Number</label><input type="tel" name="altMobile" pattern="[0-9]{10}"></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" name="email"></div>
+                        <div class="form-group"><label>Area <span class="required">*</span></label><select name="area" required><option value="">Select Area</option><option value="Vrygrond">Vrygrond</option><option value="Muizenberg">Muizenberg</option><option value="Lakeside">Steenberg</option><option value="Ocean View">Lavender Hill</option><option value="Fish Hoek">Grassy Park</option><option value="Ocean View">Cadfa</option><option value="Fish Hoek">Retreat</option><option value="Ocean View">Seawinds</option><option value="Fish Hoek">Hillview</option></select></div>
+                        <div class="form-group"><label>Full Address <span class="required">*</span></label><textarea name="address" rows="3" required></textarea></div>
+                        
+                        <h3 style="color: #667eea; margin-top: 25px; margin-bottom: 15px;">Education & Program</h3>
+                        <div class="form-group"><label>Highest Education Level <span class="required">*</span></label><select name="education" required><option value="">Select</option><option value="Primary School">Primary School</option><option value="Grade 9">Grade 9</option><option value="Grade 10">Grade 10</option><option value="Grade 11">Grade 11</option><option value="Matric">Matric</option><option value="Tertiary">Tertiary</option></select></div>
+                        <div class="form-group"><label>Current Employment Status <span class="required">*</span></label><select name="employmentStatus" required><option value="">Select</option><option value="Unemployed">Unemployed</option><option value="Employed - Full Time">Employed - Full Time</option><option value="Employed - Part Time">Employed - Part Time</option><option value="Self-Employed">Self-Employed</option><option value="Student">Student</option></select></div>
+                        <div class="form-group"><label>Monthly Household Income (R) <span class="required">*</span></label><select name="income" required><option value="">Select Income Bracket</option><option value="0-R1000">R0 - R1,000</option><option value="R1001-R3000">R1,001 - R3,000</option><option value="R3001-R5000">R3,001 - R5,000</option><option value="R5001+">R5,001+</option></select></div>
+                        <div class="form-group"><label>Which program are you applying for? <span class="required">*</span></label><select name="program" required onchange="displayProgramInfo(this)"><option value="">Select Program</option><option value="Artisan Baking">Artisan Baking</option><option value="Barista">Barista</option><option value="Hair">Hair</option><option value="Beauty">Beauty</option></select></div>
+                        <div id="programInfoBox"></div>
+
+                        <button type="button" class="nav-btn" onclick="goToNextSection(2)">Continue to Pre-Training Assessment</button>
+                    </div>
+                </div>
             </div>
             
-            <div class="card" style="border-left-color: #10b981;">
-                <h2 style="color: #10b981;">3. Pre-Training Assessment</h2>
-                
-                <h3 style="color: #764ba2; margin-bottom: 15px;">Skills & Experience</h3>
-                <div class="form-group">
-                    <label>Technical learning ability (1-5) <span class="required">*</span></label>
-                    <select name="technicalKnowledge" required><option value="">Select</option><option value="1">1 - Very Low</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Excellent</option></select>
-                </div>
-                <div class="form-group"><label>Experience with relevant tools <span class="required">*</span></label><textarea name="toolsExperience" rows="3" required></textarea></div>
-                <div class="form-group"><label>Other existing skills <span class="required">*</span></label><textarea name="existingSkills" rows="3" required></textarea></div>
-                
-                <h3 style="color: #764ba2; margin-top: 25px; margin-bottom: 15px;">Soft Skills (1-5)</h3>
-                <div class="form-group">
-                    <label>Self-Assessment (1-5):</label>
-                    <div class="rating-group"><label>Following instructions</label><select name="followInstructions" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                    <div class="rating-group"><label>Time management</label><select name="timeManagement" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                    <div class="rating-group"><label>Teamwork</label><select name="teamwork" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                    <div class="rating-group"><label>Customer communication</label><select name="customerCommunication" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                    <div class="rating-group"><label>Asking for help</label><select name="askingHelp" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                </div>
+            <div class="accordion-item" id="section3" style="border-left-color: #10b981;">
+                <button type="button" class="accordion-header" onclick="toggleAccordion('section3')" disabled>
+                    <h2 id="header3" style="color: #10b981;">3. Pre-Training Assessment <span class="status-icon">▶</span></h2>
+                </button>
+                <div class="accordion-content">
+                    <div class="card">
+                        <h3 style="color: #764ba2; margin-bottom: 15px;">Skills & Experience</h3>
+                        <div class="form-group">
+                            <label>Technical learning ability (1-5) <span class="required">*</span></label>
+                            <select name="technicalKnowledge" required><option value="">Select</option><option value="1">1 - Very Low</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5 - Excellent</option></select>
+                        </div>
+                        <div class="form-group"><label>Experience with relevant tools <span class="required">*</span></label><textarea name="toolsExperience" rows="3" required></textarea></div>
+                        <div class="form-group"><label>Other existing skills <span class="required">*</span></label><textarea name="existingSkills" rows="3" required></textarea></div>
+                        
+                        <h3 style="color: #764ba2; margin-top: 25px; margin-bottom: 15px;">Soft Skills (1-5)</h3>
+                        <div class="form-group">
+                            <label>Self-Assessment (1-5):</label>
+                            <div class="rating-group"><label>Following instructions</label><select name="followInstructions" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                            <div class="rating-group"><label>Time management</label><select name="timeManagement" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                            <div class="rating-group"><label>Teamwork</label><select name="teamwork" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                            <div class="rating-group"><label>Customer communication</label><select name="customerCommunication" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                            <div class="rating-group"><label>Asking for help</label><select name="askingHelp" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        </div>
 
-                <div class="form-group"><label>Languages spoken</label><textarea name="languages" rows="2"></textarea></div>
-                
-                <h3 style="color: #764ba2; margin-top: 25px; margin-bottom: 15px;">Motivation & Support</h3>
-                <div class="form-group"><label>Own a smartphone? <span class="required">*</span></label><select name="smartphone" required><option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
-                <div class="form-group"><label>Social media comfort (1-5) <span class="required">*</span></label><select name="socialMedia" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                <div class="form-group"><label>Computer use frequency <span class="required">*</span></label><select name="computerUse" required><option value="">Select</option><option value="Never">Never</option><option value="Rarely">Rarely</option><option value="Weekly">Weekly</option><option value="Daily">Daily</option></select></div>
-                <div class="form-group"><label>Employment importance (1-5) <span class="required">*</span></label><select name="employmentImportance" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                <div class="form-group"><label>Interest in starting business? <span class="required">*</span></label><select name="businessInterest" required><option value="">Select</option><option value="Yes">Yes</option><option value="Maybe">Maybe</option><option value="No">No</option></select></div>
-                <div class="form-group"><label>Commitment to complete program (1-5) <span class="required">*</span></label><select name="commitment" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
-                
-                <div class="form-group"><label>Main goals after training <span class="required">*</span></label><textarea name="goals" rows="3" required></textarea></div>
-                <div class="form-group"><label>Anticipated challenges <span class="required">*</span></label><textarea name="challenges" rows="3" required></textarea></div>
-                <div class="form-group"><label>Support needed <span class="required">*</span></label><textarea name="supportNeeds" rows="3" required></textarea></div>
-                <div class="form-group"><label>Family support level <span class="required">*</span></label><select name="familySupport" required><option value="">Select</option><option value="Fully Supportive">Fully Supportive</option><option value="Mostly Supportive">Mostly Supportive</option><option value="Neutral">Neutral</option><option value="Not Supportive">Not Supportive</option></select></div>
-
+                        <div class="form-group"><label>Languages spoken</label><textarea name="languages" rows="2"></textarea></div>
+                        
+                        <h3 style="color: #764ba2; margin-top: 25px; margin-bottom: 15px;">Motivation & Support</h3>
+                        <div class="form-group"><label>Own a smartphone? <span class="required">*</span></label><select name="smartphone" required><option value="">Select</option><option value="Yes">Yes</option><option value="No">No</option></select></div>
+                        <div class="form-group"><label>Social media comfort (1-5) <span class="required">*</span></label><select name="socialMedia" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        <div class="form-group"><label>Computer use frequency <span class="required">*</span></label><select name="computerUse" required><option value="">Select</option><option value="Never">Never</option><option value="Rarely">Rarely</option><option value="Weekly">Weekly</option><option value="Daily">Daily</option></select></div>
+                        <div class="form-group"><label>Employment importance (1-5) <span class="required">*</span></label><select name="employmentImportance" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        <div class="form-group"><label>Interest in starting business? <span class="required">*</span></label><select name="businessInterest" required><option value="">Select</option><option value="Yes">Yes</option><option value="Maybe">Maybe</option><option value="No">No</option></select></div>
+                        <div class="form-group"><label>Commitment to complete program (1-5) <span class="required">*</span></label><select name="commitment" required><option value="">Select</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option></select></div>
+                        
+                        <div class="form-group"><label>Main goals after training <span class="required">*</span></label><textarea name="goals" rows="3" required></textarea></div>
+                        <div class="form-group"><label>Anticipated challenges <span class="required">*</span></label><textarea name="challenges" rows="3" required>difficulties that might arise in the future</textarea></div>
+                        <div class="form-group"><label>Support needed <span class="required">*</span></label><textarea name="supportNeeds" rows="3" required></textarea></div>
+                        <div class="form-group"><label>Family support level <span class="required">*</span></label><select name="familySupport" required><option value="">Select</option><option value="Fully Supportive">Fully Supportive</option><option value="Mostly Supportive">Mostly Supportive</option><option value="Neutral">Neutral</option><option value="Not Supportive">Not Supportive</option></select></div>
+                    </div>
+                </div>
             </div>
 
             <div class="important-note">
@@ -394,7 +398,8 @@
         </form>
 
         <div id="success-message">
-            <h2>Application Received! 🎉</h2>
+            <h2 style="font-size: 2.5em; margin-bottom: 10px;">Application Received! 🎉</h2>
+            <p style="font-size: 1.2em; color: #166534; margin-bottom: 30px;">Thank you for completing your application and assessment. Our team will be in touch soon.</p>
             
             <h3 style="color: var(--secondary); margin-top: 15px;">Please save the following ID for follow-up:</h3>
 
@@ -407,9 +412,16 @@
                 <div class="summary-item"><span class="summary-label">Program:</span><span class="summary-value" id="finalProgram"></span></div>
                 <div class="summary-item"><span class="summary-label">Baseline Score:</span><span class="summary-value" id="finalScore"></span></div>
             </div>
+
+            <div class="contact-info">
+                <h4>📞 For Enquiries:</h4>
+                <p><strong>Call:</strong> 021 825 5529</p>
+                <p><strong>Email:</strong> Nigel@sozo.org.za/Juanita@sozo.org.za</p>
+                <p><strong>Office Hours:</strong> Monday - Friday, 8:00 AM - 4:30 PM</p>
+            </div>
             
             <p style="margin-top: 20px;">We will contact you via phone or email soon.</p>
-            <a href="https://sozo.org.za/" class="submit-btn" style="background: #27ae60; text-decoration: none; display: block; max-width: 300px; margin: 20px auto 0;">Go to Sozo Website</a>
+            <a href="https://sozo.org.za/" class="btn-home" style="text-decoration: none; display: block; max-width: 300px; margin: 20px auto 0;">Return to Sozo Website</a>
         </div>
     </div>
 
@@ -417,8 +429,11 @@
         // ---------------------------------------------------------
         // *** IMPORTANT: REPLACE THIS URL WITH YOUR DEPLOYED GOOGLE APPS SCRIPT URL ***
         // ---------------------------------------------------------
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwwPN_tOKWDjjHZxtlqnDkiZ_yAhfFTKy5XxVNYMZfeSvaAf3hflytuR1_paj1ZLBpHHw/exec'; 
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwhHO_HTcP4Tzti_dJZaR1U6nVf2wIEmNtUpdQu5bJK3jYaQ-6VSaudiXBMqqkU32SVLQ/exec'; 
         // ---------------------------------------------------------
+        
+        const MIN_AGE = 16;
+        const MAX_AGE = 35;
         
         const PROGRAM_DETAILS = {
             "Artisan Baking": { 
@@ -443,19 +458,120 @@
             }
         };
 
-        // Utility Functions
+        // --- ACCORDION LOGIC ---
+
+        // Closes all sections except the one specified (if opening)
+        function toggleAccordion(id, forceOpen = false) {
+            const currentItem = document.getElementById(id);
+            const isActive = currentItem.classList.contains('active');
+            const allItems = document.querySelectorAll('.accordion-item');
+
+            allItems.forEach(item => {
+                item.classList.remove('active');
+                // Only enable headers of completed sections for quick navigation
+                if (item.classList.contains('completed')) {
+                    item.querySelector('.accordion-header').disabled = false;
+                }
+            });
+
+            if (forceOpen || !isActive) {
+                currentItem.classList.add('active');
+                currentItem.querySelector('.accordion-header').disabled = false;
+                // Scroll to the opened section
+                currentItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Checks all required fields within a section
+        function validateSection(sectionNumber) {
+            const sectionId = `section${sectionNumber}`;
+            const section = document.getElementById(sectionId);
+            // Only validate visible required fields
+            const requiredFields = section.querySelectorAll('[required]:not([style*="display: none"])');
+            
+            let isValid = true;
+            
+            // 1. Trigger native validation check
+            requiredFields.forEach(field => {
+                // If field is visible and empty
+                if (!field.value || (field.type === 'radio' && !document.querySelector(`input[name="${field.name}"]:checked`))) {
+                    field.reportValidity(); // Shows native browser error message
+                    isValid = false;
+                }
+            });
+            
+            // 2. Age-Specific Check (Crucial for Section 1)
+            if (sectionNumber === 1) {
+                const ageInput = document.getElementById('ageInput');
+                const age = parseInt(ageInput.value);
+                
+                if (isNaN(age) || age < MIN_AGE || age > MAX_AGE) {
+                    alert(`Application Rule: You must be between ${MIN_AGE} and ${MAX_AGE} years old.`);
+                    ageInput.reportValidity();
+                    isValid = false;
+                }
+
+                // Custom Logic check (e.g. for conditional fields like Passport)
+                const idType = document.querySelector('input[name="identificationType"]:checked')?.value;
+                if (!idType) {
+                     // Check if ID type is selected
+                     document.querySelector('input[name="identificationType"]').reportValidity();
+                     isValid = false;
+                } else if (idType === 'Passport') {
+                    const permitStatus = document.querySelector('select[name="permitStatus"]').value;
+                    const permitDetailsInput = document.querySelector('input[name="permitDetails"]');
+
+                    if (!document.getElementById('passportNumberInput').checkValidity() || !permitStatus) {
+                        isValid = false;
+                    }
+                    if (permitStatus === 'Yes' && !permitDetailsInput.value) {
+                         permitDetailsInput.reportValidity();
+                         isValid = false;
+                    }
+                }
+            }
+
+
+            if (isValid) {
+                section.classList.add('completed');
+                section.querySelector('.status-icon').innerHTML = '✔';
+            } else {
+                 // Ensure status icon reflects failure if validation fails
+                 section.querySelector('.status-icon').innerHTML = '❌';
+            }
+
+            return isValid;
+        }
+
+        function goToNextSection(currentSectionNumber) {
+            if (validateSection(currentSectionNumber)) {
+                toggleAccordion(`section${currentSectionNumber}`, false); // Close current
+                const nextSectionNumber = currentSectionNumber + 1;
+                if (nextSectionNumber <= 3) {
+                    toggleAccordion(`section${nextSectionNumber}`, true); // Open next
+                    // Enable the header button for the next section
+                    document.getElementById(`section${nextSectionNumber}`).querySelector('.accordion-header').disabled = false;
+                }
+            } else {
+                // If validation failed, ensure the current section remains open
+                toggleAccordion(`section${currentSectionNumber}`, true);
+            }
+        }
+
+        // --- Standard Utility Functions ---
         function getCentury(yearString) { return parseInt(yearString) > (new Date().getFullYear() % 100) ? 1900 + parseInt(yearString) : 2000 + parseInt(yearString); }
         function calculateAge(dob) { const today = new Date(); const birthDate = new Date(dob); let age = today.getFullYear() - birthDate.getFullYear(); const m = today.getMonth() - birthDate.getMonth(); if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--; return age; }
         
-        // --- Conditional Logic Functions ---
+        // --- AGE VALIDATION FOR SA ID ---
         function processSAID(input) {
             const idNumber = input.value.trim();
             const dobInput = document.getElementById('dateOfBirthInput');
             const ageInput = document.getElementById('ageInput');
             const genderSelect = document.querySelector('[name="gender"]');
             
-            // Clear previous values
+            // Clear previous values and custom validity
             dobInput.value = ''; ageInput.value = ''; genderSelect.value = ''; toggleConstructionExperience(genderSelect);
+            input.setCustomValidity('');
             
             if (idNumber.length === 13 && /^\d{13}$/.test(idNumber)) {
                 const year = idNumber.substring(0, 2); const month = idNumber.substring(2, 4); const day = idNumber.substring(4, 6);
@@ -463,15 +579,25 @@
                 
                 if (dateCheck.getFullYear() === fullYear && dateCheck.getMonth() === parseInt(month) - 1) {
                     const age = calculateAge(dobString);
-                    if (age >= 16 && age <= 65) {
+                    
+                    if (age >= MIN_AGE && age <= MAX_AGE) {
                         dobInput.value = dobString; ageInput.value = age;
                         genderSelect.value = parseInt(idNumber.substring(10, 11)) >= 5 ? 'Male' : 'Female';
                         toggleConstructionExperience(genderSelect);
-                    } else alert(`ID valid, but age (${age}) is outside required range (16-65).`);
-                } else alert('Invalid date of birth extracted from ID number.');
+                    } else {
+                        alert(`The required age range is ${MIN_AGE} to ${MAX_AGE}. Your age is ${age}. You cannot proceed.`);
+                        input.setCustomValidity(`Age must be between ${MIN_AGE} and ${MAX_AGE}.`);
+                        input.reportValidity();
+                    }
+                } else {
+                    alert('Invalid date of birth extracted from ID number.');
+                    input.setCustomValidity('Invalid date of birth in ID.');
+                    input.reportValidity();
+                }
             }
         }
 
+        // --- CONDITIONAL LOGIC & AGE VALIDATION FOR PASSPORT/FOREIGN ID ---
         function toggleIdentificationType(radio) {
             const isSAID = radio.value === 'SA ID';
             const dobInput = document.getElementById('dateOfBirthInput');
@@ -489,25 +615,44 @@
             dobInput.style.backgroundColor = isSAID ? '#eee' : 'white';
             ageInput.style.backgroundColor = isSAID ? '#eee' : 'white';
 
-            // Clear opposite fields
+            // Clear opposite fields and reset validation
+            document.getElementById('idNumberInput').value = ''; 
+            document.getElementById('idNumberInput').setCustomValidity('');
+
             if(!isSAID) { 
-                document.getElementById('idNumberInput').value = ''; 
-                // Manual entry is needed for non-SA ID, so clear fields if user switches
-                dobInput.value = ''; 
-                ageInput.value = ''; 
-            } else { 
+                // Clear and enable manual entry
                 document.getElementById('passportNumberInput').value = ''; 
                 document.getElementById('permitStatusInput').value = ''; 
                 document.querySelector('[name="permitDetails"]').value = ''; 
                 togglePermitDetails(document.getElementById('permitStatusInput')); 
+            } else { 
+                 // Clear manual fields
+                dobInput.value = ''; 
+                ageInput.value = ''; 
+                document.querySelector('[name="gender"]').value = '';
+                toggleConstructionExperience(document.querySelector('[name="gender"]'));
             }
         }
 
-        // Attach date calculation to manual DOB input (if SA ID is not selected)
+        // Attach date calculation and age check to manual DOB input (if SA ID is not selected)
         document.getElementById('dateOfBirthInput').addEventListener('change', (e) => {
-            if (e.target.value && !e.target.readOnly) {
-                const age = calculateAge(e.target.value);
-                document.getElementById('ageInput').value = age;
+            const ageInput = document.getElementById('ageInput');
+            const dobInput = e.target;
+            
+            // Only proceed if DOB is not automatically populated (i.e., not SA ID)
+            if (dobInput.value && !dobInput.readOnly) {
+                const age = calculateAge(dobInput.value);
+
+                if (age >= MIN_AGE && age <= MAX_AGE) {
+                    ageInput.value = age;
+                    dobInput.setCustomValidity('');
+                } else {
+                    alert(`The required age range is ${MIN_AGE} to ${MAX_AGE}. Your age is ${age}. You cannot proceed.`);
+                    ageInput.value = '';
+                    dobInput.value = ''; // Clear DOB to force correction
+                    dobInput.setCustomValidity(`Age must be between ${MIN_AGE} and ${MAX_AGE}.`);
+                    dobInput.reportValidity();
+                }
             }
         });
         
@@ -544,9 +689,61 @@
             } else { infoBox.innerHTML = ''; }
         }
 
-        // --- Submission Handler ---
+
+        // -----------------------------------------------------------------
+        // --- NEW FUNCTION: DUPLICATE APPLICATION CHECK ---
+        // -----------------------------------------------------------------
+        async function checkDuplicateApplication(data) {
+            // Determine the unique identifier(s) based on the Identification Type
+            let checkData = { type: 'check_duplicate' };
+
+            if (data.identificationType === 'SA ID') {
+                checkData.idNumber = data.idNumber;
+                checkData.mobile = data.mobile; // Secondary check on mobile is a good idea
+            } else {
+                checkData.passportNumber = data.passportNumber;
+                checkData.mobile = data.mobile;
+            }
+
+            try {
+                // Send the check request to the server
+                const response = await fetch(SCRIPT_URL, { 
+                    method: 'POST', 
+                    body: JSON.stringify(checkData), 
+                    headers: { 'Content-Type': 'text/plain;charset=utf-8' } 
+                });
+                
+                const result = await response.json();
+                
+                // *** IMPORTANT: The Google Apps Script must return { status: 'duplicate' } if found. ***
+                if (result.status === 'duplicate') {
+                    return true;
+                }
+                return false;
+
+            } catch (error) {
+                console.error('Error during duplicate check:', error);
+                // Fail safe: If the check fails, assume no duplicate to allow submission
+                // but this should be fixed on the server side.
+                alert('Warning: Could not verify application status. Proceeding with submission.');
+                return false; 
+            }
+        }
+        // -----------------------------------------------------------------
+        // -----------------------------------------------------------------
+
+
+        // --- Submission Handler (FINAL STEP) ---
         document.getElementById('fullApplicationForm').addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            // Final validation: Ensure the last section is also valid
+            if (!validateSection(3)) {
+                alert('Please complete all required fields in the final assessment section.');
+                toggleAccordion('section3', true); // Open the section for correction
+                return;
+            }
+
             const form = this;
             const submitBtn = document.getElementById('submitBtn');
             const btnText = document.getElementById('btn-text');
@@ -569,15 +766,26 @@
             else if (data.constructionExperience === 'No') data.constructionDetails = 'None described';
             if (data.disability === 'No') data.disabilityType = 'N/A';
 
+            // 3. *NEW* Check for Duplicates
+            const isDuplicate = await checkDuplicateApplication(data);
 
-            // 3. Finalize Submission Metadata
+            if (isDuplicate) {
+                alert('Application Rejected: An application using this identification (ID/Passport/Mobile Number) has already been submitted. We do not allow duplicate entries.');
+                // Re-enable button and hide loader
+                btnText.style.display = 'block';
+                loader.style.display = 'none';
+                submitBtn.disabled = false;
+                return; // STOP the submission process
+            }
+            
+            // 4. Finalize Submission Metadata
             data.id = 'SS-' + Date.now().toString().slice(-8); // Generate ID
             data.submissionDate = new Date().toLocaleString();
             data.applicationStatus = 'Assessment Completed';
             data.assessmentCompleted = 'YES';
             data.type = 'full_submission'; // Tag for script
 
-            // 4. Calculate Baseline Score
+            // 5. Calculate Baseline Score
             let scoreSum = 0, scoreCount = 0;
             const scoreFields = ['technicalKnowledge', 'followInstructions', 'timeManagement', 'teamwork', 'customerCommunication', 'askingHelp', 'socialMedia', 'employmentImportance', 'commitment'];
 
@@ -589,9 +797,8 @@
             data.baselineScore = scoreCount > 0 ? (scoreSum / scoreCount).toFixed(2) : 'N/A';
             const avgScore = data.baselineScore;
 
-
             try {
-                // *** FIX: Use text/plain to avoid CORS Preflight error ***
+                // *** ORIGINAL SUBMISSION ***
                 const response = await fetch(SCRIPT_URL, { 
                     method: 'POST', 
                     body: JSON.stringify(data), 
@@ -601,21 +808,27 @@
                 const result = await response.json();
                 
                 if (result.status === 'success') {
-                    // 5. Success: Hide form, show summary
-                    form.style.display = 'none';
-                    document.getElementById('finalId').innerText = data.id;
-                    document.getElementById('finalName').innerText = `${data.firstName} ${data.lastName}`;
-                    document.getElementById('finalProgram').innerText = data.program;
-                    document.getElementById('finalScore').innerText = `${avgScore}/5.0`;
+                    // 6. Success: Hide form and show the success message (Thank You View)
+                    
+                    // Update Thank You details
+                    document.getElementById('finalId').textContent = data.id;
+                    document.getElementById('finalName').textContent = `${data.firstName} ${data.lastName}`;
+                    document.getElementById('finalProgram').textContent = data.program;
+                    document.getElementById('finalScore').textContent = data.baselineScore;
+                    
+                    // Toggle views
+                    document.getElementById('fullApplicationForm').style.display = 'none';
                     document.getElementById('success-message').style.display = 'block';
-                    window.scrollTo(0, 0);
+                    
+                    // Scroll to the top of the success message
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
 
                 } else {
                     throw new Error(result.message || 'Submission failed');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Submission error: Failed to fetch. Please check your connection and ensure the SCRIPT_URL is correct.');
+                alert('Submission error: Failed to submit final data. Please try again. Check your browser console for details.');
                 btnText.style.display = 'block';
                 loader.style.display = 'none';
                 submitBtn.disabled = false;
@@ -624,17 +837,12 @@
 
         // Initialize display on load
         document.addEventListener('DOMContentLoaded', () => {
-            // Check if any radio is selected to show conditional fields on load (useful for browser refresh)
-            const idTypeSelected = document.querySelector('input[name="identificationType"]:checked');
-            if (idTypeSelected) toggleIdentificationType(idTypeSelected);
+            // Attach initial DOB/Age calculation if SA ID is active
+            document.getElementById('idNumberInput').addEventListener('input', (e) => processSAID(e.target));
             
-            const genderSelected = document.querySelector('select[name="gender"]');
-            if (genderSelected.value) toggleConstructionExperience(genderSelected);
-
-            const disabilitySelected = document.querySelector('select[name="disability"]');
-            if (disabilitySelected.value) toggleDisabilityType(disabilitySelected);
+            // Enable the header for section 1
+            document.getElementById('section1').querySelector('.accordion-header').disabled = false;
         });
     </script>
 </body>
 </html>
-
