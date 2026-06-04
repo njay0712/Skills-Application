@@ -14,7 +14,7 @@
             --card-bg: #ffffff;
             --text: #1e293b;
             --success: #10b981;
-            --warning-bg: #fef3c7;
+            --warning-bg: #fffbeb;
             --warning-border: #f59e0b;
             --warning-text: #b45309;
         }
@@ -45,7 +45,7 @@
         h1 { font-size: 2.5rem; margin-bottom: 10px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
         p.subtitle { font-size: 1.1rem; opacity: 0.9; }
 
-        /* --- POP-UP MODAL STYLES --- */
+        /* --- POP-UP MODAL STYLES (SHARED FOR WELCOME & SUCCESS) --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -72,6 +72,11 @@
             text-align: center;
             animation: modalPop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             border-top: 8px solid var(--primary);
+        }
+
+        /* Success state for ID pop-up */
+        .modal-card.success-pop {
+            border-top-color: var(--success);
         }
 
         .modal-card h2 {
@@ -115,6 +120,17 @@
             border-color: var(--warning-border);
         }
 
+        /* Target Reference Badge Styling */
+        .modal-badge.reference-id {
+            background: #f0fdf4;
+            color: #166534;
+            border-color: var(--success);
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            border-style: solid;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+        }
+
         .modal-btn {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
@@ -126,6 +142,10 @@
             cursor: pointer;
             width: 100%;
             transition: transform 0.2s;
+        }
+
+        .modal-btn.success-btn {
+            background: linear-gradient(135deg, var(--success), #059669);
         }
 
         .modal-btn:hover {
@@ -149,7 +169,7 @@
 
         .accordion-header {
             width: 100%;
-            background: #eef2ff; /* Light Accent */
+            background: #eef2ff;
             color: var(--text);
             padding: 20px 30px;
             text-align: left;
@@ -196,13 +216,13 @@
         }
         .accordion-item.active .accordion-content {
             padding: 30px;
-            max-height: 3000px; /* Large enough to cover content */
+            max-height: 3000px;
             overflow: visible;
         }
         
-        /* CARD content (inside accordion-content) */
+        /* CARD content */
         .card {
-            padding: 0; /* Remove padding as it's now on accordion-content */
+            padding: 0;
             box-shadow: none;
             border-left: none;
             border-radius: 0;
@@ -210,7 +230,6 @@
 
         label { display: block; font-weight: 600; margin-bottom: 8px; color: #333; }
         
-        /* Input and Select Styling */
         input:not([type="radio"]), select, textarea {
             width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 1rem;
             box-sizing: border-box; transition: border-color 0.3s; margin-bottom: 15px;
@@ -311,7 +330,7 @@
             font-size: 1.1em; margin-bottom: 15px;
         }
         .id-value { color: var(--secondary); font-weight: 700; }
-        /* Contact Info Block */
+
         .contact-info {
             background: #fff3cd;
             padding: 20px;
@@ -320,16 +339,9 @@
             margin: 30px 0;
             text-align: left;
         }
-        .contact-info h4 {
-            color: #856404;
-            margin-bottom: 10px;
-            margin-top: 0;
-        }
-        .contact-info p {
-            color: #856404;
-            font-size: 1em;
-            margin: 5px 0;
-        }
+        .contact-info h4 { color: #856404; margin-bottom: 10px; margin-top: 0; }
+        .contact-info p { color: #856404; font-size: 1em; margin: 5px 0; }
+        
         .btn-home {
             display: inline-block;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -360,7 +372,7 @@
 </head>
 <body>
 
-    <!-- POP-UP MODAL OVERLAY -->
+    <!-- 1. WELCOME POP-UP MODAL OVERLAY -->
     <div class="modal-overlay" id="ageModal">
         <div class="modal-card">
             <h2>Welcome to Sozo Skills! 👋</h2>
@@ -372,7 +384,22 @@
             </div>
 
             <p>If this fits your schedule and profile perfectly, let's get started!</p>
-            <button type="button" class="modal-btn" onclick="closeModal()">Continue to Application</button>
+            <button type="button" class="modal-btn" onclick="closeModal('ageModal')">Continue to Application</button>
+        </div>
+    </div>
+
+    <!-- 2. APPLICATION ID POP-UP MODAL OVERLAY (HIDDEN BY DEFAULT) -->
+    <div class="modal-overlay" id="idSuccessModal" style="display: none; opacity: 0;">
+        <div class="modal-card success-pop">
+            <h2>Application Submitted! 🎉</h2>
+            <p>Your details have been recorded. Please copy or write down your official reference number immediately:</p>
+            
+            <div class="info-badges-container">
+                <div class="modal-badge reference-id" id="popUpIdDisplay">SOZO-XXXX-XXXX</div>
+            </div>
+
+            <p style="font-size: 0.95rem; color: #64748b;">You will need this reference ID for any status checks or communications with the foundation team.</p>
+            <button type="button" class="modal-btn success-btn" onclick="closeModal('idSuccessModal')">I Have Saved My ID</button>
         </div>
     </div>
 
@@ -460,7 +487,7 @@
                         <div class="form-group"><label>Highest Education Level <span class="required">*</span></label><select name="education" required><option value="">Select</option><option value="Primary School">Primary School</option><option value="Grade 9">Grade 9</option><option value="Grade 10">Grade 10</option><option value="Grade 11">Grade 11</option><option value="Matric">Matric</option><option value="Tertiary">Tertiary</option></select></div>
                         <div class="form-group"><label>Current Employment Status <span class="required">*</span></label><select name="employmentStatus" required><option value="">Select</option><option value="Unemployed">Unemployed</option><option value="Employed - Full Time">Employed - Full Time</option><option value="Employed - Part Time">Employed - Part Time</option><option value="Self-Employed">Self-Employed</option><option value="Student">Student</option></select></div>
                         <div class="form-group"><label>Monthly Household Income (R) <span class="required">*</span></label><select name="income" required><option value="">Select Income Bracket</option><option value="0-R1000">R0 - R1,000</option><option value="R1001-R3000">R1,001 - R3,000</option><option value="R3001-R5000">R3,001 - R5,000</option><option value="R5001+">R5,001+</option></select></div>
-                        <div class="form-group"><label>Which program are you applying for? <span class="required">*</span></label><select name="program" required><option value="">Select Program</option><option value="Artisan Baking">Artisan Baking</option><option value="Barista">Barista</option><option value="Hair">Hair</option><option value="Beauty">Beauty</option></select></div>
+                        <div class="form-group"><label>Which program are you applying for? <span class="required">*</span></label><select name="program" required onchange="displayProgramInfo(this)"><option value="">Select Program</option><option value="Artisan Baking">Artisan Baking</option><option value="Barista">Barista</option><option value="Hair">Hair</option><option value="Beauty">Beauty</option></select></div>
                         <div id="programInfoBox"></div>
 
                         <button type="button" class="nav-btn" onclick="goToNextSection(2)">Continue to Pre-Training Assessment</button>
@@ -512,7 +539,7 @@
             </div>
 
             <div class="important-note">
-                <strong>CRITICAL:</strong> Upon clicking 'Submit', you will receive an <strong>Application ID</strong>. You <strong>must save this ID</strong> immediately. It is required for all follow-up inquiries regarding your application status.
+                <strong>CRITICAL:</strong> Upon clicking 'Submit', your unique <strong>Application ID</strong> will pop up on your screen. You <strong>must save this ID</strong> immediately for reference.
             </div>
 
             <button type="submit" class="submit-btn" id="submitBtn">
@@ -526,7 +553,7 @@
             <h2 style="font-size: 2.5em; margin-bottom: 10px;">Application Received! 🎉</h2>
             <p style="font-size: 1.2em; color: #166534; margin-bottom: 30px;">Thank you for completing your application and assessment. Our team will be in touch soon.</p>
             
-            <h3 style="color: var(--secondary); margin-top: 15px;">Please save the following ID for follow-up:</h3>
+            <h3 style="color: var(--secondary); margin-top: 15px;">Your Saved Application Summary:</h3>
 
             <div class="summary-box">
                 <div class="summary-item highlight">
@@ -579,13 +606,21 @@
             }
         };
 
-        // --- POP-UP MODAL CLOSING LOGIC ---
-        function closeModal() {
-            const modal = document.getElementById('ageModal');
+        // --- POP-UP MODAL CLOSING / OPENING LOGIC ---
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
             modal.style.opacity = '0';
             setTimeout(() => {
                 modal.style.display = 'none';
             }, 300);
+        }
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
         }
 
         // --- ACCORDION LOGIC ---
@@ -723,15 +758,6 @@
             }
         }
 
-        function toggleDisabilityType(select) {
-            const group = document.getElementById('disabilityTypeGroup');
-            if (select.value === 'Yes') {
-                group.style.display = 'block';
-            } else {
-                group.style.display = 'none';
-            }
-        }
-
         function displayProgramInfo(select) {
             const container = document.getElementById('programInfoBox');
             const data = PROGRAM_DETAILS[select.value];
@@ -830,6 +856,13 @@
             const baselineScore = calculateBaselineScore(dataPayload);
             dataPayload.append('baselineScore', baselineScore.toString());
 
+            // Build structural unique Tracking Reference Code
+            const timestampCode = Date.now().toString().slice(-4);
+            const initialCode = dataPayload.get('firstName').substring(0, 2).toUpperCase();
+            const trackingId = `SZ-${initialCode}-${new Date().getFullYear()}-${timestampCode}`;
+            
+            dataPayload.append('applicationId', trackingId);
+
             const plainObject = {};
             dataPayload.forEach((val, key) => { plainObject[key] = val; });
 
@@ -840,14 +873,21 @@
                 body: JSON.stringify(plainObject)
             })
             .then(() => {
+                // 1. Hide form elements
                 document.getElementById('formHeader').style.display = 'none';
                 formElement.style.display = 'none';
                 
+                // 2. Populate success cards underneath
                 document.getElementById('finalName').textContent = `${plainObject.firstName} ${plainObject.lastName}`;
                 document.getElementById('finalProgram').textContent = plainObject.program;
                 document.getElementById('finalScore').textContent = `${baselineScore} Points`;
-                document.getElementById('finalId').textContent = plainObject.idNumber || plainObject.passportNumber || 'GEN-PENDING';
+                document.getElementById('finalId').textContent = trackingId;
                 
+                // 3. Populate and trigger the new ID Success Pop-up Modal
+                document.getElementById('popUpIdDisplay').textContent = trackingId;
+                openModal('idSuccessModal');
+                
+                // 4. Reveal final background success container
                 document.getElementById('success-message').style.display = 'block';
             })
             .catch(err => {
